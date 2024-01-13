@@ -120,6 +120,8 @@ resource "aws_route" "main_route" {
 
 In this resource block, we create an AWS route named 'main_route'. This route is associated with both the route table as well as the internet gateway through the use of attribute references. The fact that the destination cidr block is set to "0.0.0.0/0" (a wild card that represents all possible IP addresses), it means that this route will be used for all outbound traffic.
 
+<br>
+
 ### AWS Route Table Association 
 
 ```hcl
@@ -130,6 +132,8 @@ resource "aws_route_table_association" "main_rta" {
 ```
 
 This resource block is associating the previously created subnet with the previously created route table. This association will determine which route table will be used for routing traffic for resources within that specific subnet. 
+
+<br>
 
 ### AWS Security Group Resource 
 
@@ -154,3 +158,10 @@ resource "aws_security_group" "main_security_group" {
   }
 }
 ```
+In AWS, a Security Group serves as a virtual firewall for instances, controlling both inbound and outbound traffic. It is associated with instances, specifying rules to allow or deny traffic based on protocols, ports and IP addresses. Security Groups are stateful, automatically allowing response traffic, and operate on a default deny principle, requiring explicit rule definitions. They offer granular control over network access to instances and provide a crucial layer of securitiy for instances within the VPC. 
+
+The <strong>'ingress'</strong> block defines inbound traffic rules for the AWS security group:
+<ul>
+  <li>from_port and to_port are set to 22, indicating that the rule allows incoming traffic on TCP port 22. Port 22 is commonly used for SSH (Secure Shell) access, and this rule is designed to permit SSH connections to instances associated with the Security Group.</li>
+  <li></li>
+</ul>
