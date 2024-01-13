@@ -92,7 +92,7 @@ In this resource block, we create an AWS internet gateway named "main_internet_g
 
 <br>
 
-### AWS Route Table
+### AWS Route Table Resource Block
 
 ```hcl
 resource "aws_route_table" "main_route_table" {
@@ -108,7 +108,7 @@ A route table contains a set of rules, called routes, that determine where netwo
 
 <br>
 
-### AWS Route 
+### AWS Route Resource Block
 
 ```hcl
 resource "aws_route" "main_route" {
@@ -119,3 +119,38 @@ resource "aws_route" "main_route" {
 ```
 
 In this resource block, we create an AWS route named 'main_route'. This route is associated with both the route table as well as the internet gateway through the use of attribute references. The fact that the destination cidr block is set to "0.0.0.0/0" (a wild card that represents all possible IP addresses), it means that this route will be used for all outbound traffic.
+
+### AWS Route Table Association 
+
+```hcl
+resource "aws_route_table_association" "main_rta" {
+  route_table_id = aws_route_table.main_route_table.id
+  subnet_id      = aws_subnet.main_subnet.id
+}
+```
+
+This resource block is associating the previously created subnet with the previously created route table. This association will determine which route table will be used for routing traffic for resources within that specific subnet. 
+
+### AWS Security Group Resource 
+
+```hcl
+resource "aws_security_group" "main_security_group" {
+  name        = "main_security_group"
+  description = "Main Security Group"
+  vpc_id      = aws_vpc.main_vpc.id
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["${var.my_ip_address}/32"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+```
