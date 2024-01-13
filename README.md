@@ -159,9 +159,16 @@ resource "aws_security_group" "main_security_group" {
 }
 ```
 In AWS, a Security Group serves as a virtual firewall for instances, controlling both inbound and outbound traffic. It is associated with instances, specifying rules to allow or deny traffic based on protocols, ports and IP addresses. Security Groups are stateful, automatically allowing response traffic, and operate on a default deny principle, requiring explicit rule definitions. They offer granular control over network access to instances and provide a crucial layer of securitiy for instances within the VPC. 
-
+<br>
 The <strong>'ingress'</strong> block defines inbound traffic rules for the AWS security group:
 <ul>
   <li>from_port and to_port are set to 22, indicating that the rule allows incoming traffic on TCP port 22. Port 22 is commonly used for SSH (Secure Shell) access, and this rule is designed to permit SSH connections to instances associated with the Security Group.</li>
-  <li></li>
+  <li><strong>'protocol'</strong> is set to "tcp", specifying the transport layer protocol for the allowed traffic, which in this case is TCP. TCP stands for transport control protocol and it handles establishing connections between two devices to pass data back and forth and detecting things like packet loss and transmission if required.</li>
+</ul>
+<br>
+The <strong>'egress'</strong> block defines outbound traffic rules for the Security Group:
+<ul>
+  <li>from_port and to_port are both set to 0, indicating that no specific port range is defined for outbound traffic. This essentially allows all outbound traffic, regardless of the destination port.</li>
+  <li><strong>'protocol'</strong> is set to "-1", representing all protocols. This means that the rule allows traffic of any protocol for outbound communication.</li>
+  <li><strong>cird_blocks</strong> is set to [0.0.0.0/0] indicating that the rule allows outbound traffic to any destination IP address.</li>
 </ul>
