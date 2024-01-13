@@ -1,9 +1,8 @@
-# Terraform_Development_Enviroment
+# Terraform_Development_Environment
 
-hcl '''
+```hcl
 locals {
   cidr     = "10.123.0.0/16"
   az       = "eu-west-2a"
   instance = "t2.micro"
 }
-'''
