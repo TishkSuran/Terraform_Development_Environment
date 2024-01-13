@@ -74,3 +74,19 @@ data "aws_availability_zones" "good_zones" {
 
 In Terraform, the <strong>'data'</strong> block is used to retrieve information without creating resources. The script above employs the <strong>'aws_avilability_zone'</strong> data source to gather details about AWS availability zones. The first instance, aliased as "available", queries all availabillity zones without specific filters. The second instance, aliased as "good_zones", applies filters to narrow down the results, targeting availability zones with the state "available" and opt in status of "opt-in-not-required". Data blocks, read only in nature, play a crucial role in dynamically fetching information for use in other parts of the Terraform configuration as you will see.
 
+### AWS Internet Gateway Resource Block
+
+```hcl
+resource "aws_internet_gateway" "main_internet_gateway" {
+  vpc_id = aws_vpc.main_vpc.id
+
+  tags = {
+    Name = "Dev IGW"
+  }
+}
+```
+
+In this resource block, we create an AWS internet gateway named "main_internet_gateway". This internet gateway is associated with the virtual private cloud we previously created, we link them using an attribute reference within the Terraform block <strong>vpc_id = aws_vpc.main_vpc.id</strong>. This internet gateway is what provides a path for network traffic to travel between our VPC and the public internet. It acts as a bridge between the two networks, enabling inbound and outbound connections from resources within the VPC. 
+
+###
+
