@@ -189,7 +189,7 @@ This block creates an AWS key pair. Key pairs are used for SSH authentication wh
 
 <br>
 
-### AWS Instance Resource 
+### The Bash Script that Installs Docker on Ubuntu Server
 
 ``` bash
 #!/bin/bash
@@ -216,6 +216,9 @@ sudo systemctl start docker
 
 sudo systemctl enable docker
 ```
+<br>
+
+### AWS Instance Resource 
 
 ```hcl
 resource "aws_instance" "aws" {
