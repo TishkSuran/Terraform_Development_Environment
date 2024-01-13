@@ -47,9 +47,9 @@ This resource block creates an AWS VPC with a specific CIDR block, enables DNS h
 
 For those of you not familiar with networking or AWS, here is a brief explanation of the components used within this resource block:
 <ol>
-  <li><strong>CIDR Block:</strong> CIDR stands for Classless Inter Domain Routing. A CIDR block is a notation that represents a range of IP addresses. It consists of an IP address and a prefix length, separated by a slash. It works as follows, say we have a CIDR notation of "10.0.0.0/16", the "10.0.0.0" is the base IP address and the "/16" indicates the prefix length. In this case, it means that the first 16 bits of the IP address are fixed, and the remaining 16 bits are variable.</li>
+  <li><strong>CIDR Block:</strong></li> CIDR stands for Classless Inter Domain Routing. A CIDR block is a notation that represents a range of IP addresses. It consists of an IP address and a prefix length, separated by a slash. It works as follows, say we have a CIDR notation of "10.0.0.0/16", the "10.0.0.0" is the base IP address and the "/16" indicates the prefix length. In this case, it means that the first 16 bits of the IP address are fixed, and the remaining 16 bits are variable.</li>
   <li><strong>VPC (Virtual Private Cloud):</strong></li> VPC stands for virtual private cloud and is a virtual network, dedicated to your AWS account. It provides a logically isolated section of the AWS cloud where you can launch AWS resources.
-  <li><strong>DNS (Domain Name System): </strong>DNS is a system that translates human readable domain names into IP addresses that computers use to identify each other on a network. It acts as a directory for the internet, allowing users to access websites in easy to remember domain names instead of numerical IP addresses. In the context of AWS, enabling DNS in a VPC allows instances within the VPC to have automatically assigned DNS hostnames.</li>
+  <li><strong>DNS (Domain Name System): </strong></li>DNS is a system that translates human readable domain names into IP addresses that computers use to identify each other on a network. It acts as a directory for the internet, allowing users to access websites in easy to remember domain names instead of numerical IP addresses. In the context of AWS, enabling DNS in a VPC allows instances within the VPC to have automatically assigned DNS hostnames.
 </ol>
 
 
