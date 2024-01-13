@@ -1,5 +1,41 @@
 # Terraform_Development_Environment
 
+## Terraform Development Enviroment for AWS
+<br>
+### Overview
+This Terraform configuration sets up a comprehensive development enviroment on AWS. It includes infrastructure components such as a Virtual Private Cloud, internet gateway, route tables, security groups, and an EC2 instance.
+<br>
+
+
+### Key Components
+<ul>
+    <li><strong>Providers Block:</strong> Establishes AWS as the provider with version constraints.</li>
+    <li><strong>Local Variables Block:</strong> Defines local variables for modularity and reusability.</li>
+    <li><strong>VPC Resource Block:</strong> Creates a VPC with DNS support and hostnames enabled.</li>
+    <li><strong>Availability Zones Data Block:</strong> Retrieves information about AWS availability zones.</li>
+    <li><strong>Internet Gateway Resource Block:</strong> Establishes an internet gateway for internet connectivity.</li>
+    <li><strong>Route Table Resource Block:</strong> Defines a route table for routing traffic within the VPC.</li>
+    <li><strong>Route Resource Block:</strong> Creates a route for outbound internet traffic.</li>
+    <li><strong>Route Table Association Resource Block:</strong> Associates a subnet with a route table.</li>
+    <li><strong>Security Group Resource Block:</strong> Configures a security group with specific inbound and outbound rules.</li>
+    <li><strong>Key Pair Resource Block:</strong> Creates an AWS key pair for SSH authentication.</li>
+    <li><strong>Docker Installation Bash Script:</strong> A Bash script for installing Docker on an Ubuntu server.</li>
+    <li><strong>EC2 Instance Resource Block:</strong> Provisions an EC2 instance with specified configurations and user data.</li>
+    <li><strong>SSH Configuration Bash Script:</strong> Appends SSH configuration settings after EC2 instance creation.</li>
+</ul>
+
+<br>
+
+### Usage
+<ol>
+  <li>Configure your AWS credentials.</li>
+  <li>Replace all instances of local files and provide your own local path.</li>
+  <li>Modify variables in the Terraform files as needed.</li>
+  <li>Run 'terraform init' and 'terraform apply' to create the infrastructure.</li>
+</ol>
+
+<br>
+
 ### Terraform Providers Block
 ```hcl
 terraform {
@@ -241,6 +277,32 @@ resource "aws_instance" "aws" {
 
 This Terraform Instance code block defines an AWS EC2 instance. It specifies the AMI using the AMI ID we obtained using the data block, sets the instance type based on the local variable we defined in the local block at the start, associates the key pair resource and subnet. It also uses the bash script attatched above which is stored in a file called "userdata.tpl" which installs docker upon launch of the instance.
 
+### The SSH Bash Script
 
+``` bash
+cat <<EOF >> ~/.ssh/config
+
+Host $(hostname)
+    HostName ${hostname}
+    User ${user}
+    IdentityFile ${identityfile}
+EOF
+```
+<br>
+
+### The SSH Bash Script
+
+```hcl
+  provisioner "local-exec" {
+    command = templatefile("/Users/Coding/Desktop/Terraform_Dev_Enviroment/ssh.tpl", {
+      hostname     = self.public_ip,
+      user         = "ubuntu",
+      identityfile = "/Users/Coding/.ssh/key"
+    })
+    interpreter = ["bash", "-c"]
+  }
+```
+
+The Terraform provisoner block allows you to define actions to be taken on local or remote resources after they are created. This Terraform provisioner block execute the Bash command attatched above to configure SSH settings, including hostanme, user and identity path after creating an AWS EC2 instance.
 
 
