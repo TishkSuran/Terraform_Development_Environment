@@ -52,5 +52,25 @@ For those of you not familiar with networking or AWS, here is a brief explanatio
   <li><strong>DNS (Domain Name System): </strong></li>DNS is a system that translates human readable domain names into IP addresses that computers use to identify each other on a network. It acts as a directory for the internet, allowing users to access websites in easy to remember domain names instead of numerical IP addresses. In the context of AWS, enabling DNS in a VPC allows instances within the VPC to have automatically assigned DNS hostnames.
 </ol>
 
+<br>
 
+### AWS Availability Zones Data Block
+
+```hcl
+data "aws_availability_zones" "available" {}
+
+data "aws_availability_zones" "good_zones" {
+  filter {
+    name   = "state"
+    values = ["available"]
+  }
+
+  filter {
+    name   = "opt-in-status"
+    values = ["opt-in-not-required"]
+  }
+}
+```
+
+In Terraform, the <strong>'data'</strong> block is used to retrieve information without creating resources. The script above employs the <strong>'aws_avilability_zone' data source to gather details about AWS availability zones. The first instance, aliased as "available", queries all availabillity zones without specific filters. The second instance, aliased as "good_zones", applies filters to narrow down the results, targeting availability zones with the state "available" and opt in status of "opt-in-not-required". Data blocks, read only in nature, play a crucial role in dynamically fetching information for use in other parts of the Terraform configuration.
 
