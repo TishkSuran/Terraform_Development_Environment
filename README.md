@@ -290,7 +290,7 @@ EOF
 ```
 <br>
 
-### The SSH Bash Script
+### Provisoner Block
 
 ```hcl
   provisioner "local-exec" {
