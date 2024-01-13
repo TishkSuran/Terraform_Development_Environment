@@ -173,3 +173,69 @@ The <strong>'egress'</strong> block defines outbound traffic rules for the Secur
   <li><strong>'protocol'</strong> is set to "-1", representing all protocols. This means that the rule allows traffic of any protocol for outbound communication.</li>
   <li><strong>cird_blocks</strong> is set to [0.0.0.0/0] indicating that the rule allows outbound traffic to any destination IP address.</li>
 </ul>
+
+<br>
+
+### AWS Key Pair Resource 
+
+```hcl
+resource "aws_key_pair" "auth" {
+  key_name   = "key"
+  public_key = file("/Users/Coding/.ssh/key.pub")
+}
+```
+
+This block creates an AWS key pair. Key pairs are used for SSH authentication when connecting to instances. My key pair has been specified in a local file, but you will have to generate your own in order to use this script.
+
+<br>
+
+### AWS Instance Resource 
+
+``` bash
+#!/bin/bash
+
+sudo apt-get update -y
+
+sudo apt-get install -y \
+    apt-transport-https \
+    ca-certificates \
+    curl \
+    software-properties-common
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+echo "deb [signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update -y
+
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+
+sudo usermod -aG docker $USER
+
+sudo systemctl start docker
+
+sudo systemctl enable docker
+```
+
+```hcl
+resource "aws_instance" "aws" {
+  ami           = data.aws_ami.server_ami.id
+  instance_type = local.instance
+
+  key_name               = aws_key_pair.auth.id
+  vpc_security_group_ids = [aws_security_group.main_security_group.id]
+  subnet_id              = aws_subnet.main_subnet.id
+  user_data              = file("userdata.tpl")
+
+  tags = {
+    Name = "Dev-Node"
+  }
+
+  root_block_device {
+    volume_size = 10
+  }
+```
+
+
+
+
