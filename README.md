@@ -239,6 +239,8 @@ resource "aws_instance" "aws" {
   }
 ```
 
+This Terraform Instance code block defines an AWS EC2 instance. It specifies the AMI using the AMI ID we obtained using the data block, sets the instance type based on the local variable we defined in the local block at the start, associates the key pair resource and subnet. It also uses the bash script attatched above which is stored in a file called "userdata.tpl" which installs docker upon launch of the instance.
+
 
 
 
