@@ -111,7 +111,7 @@ resource "aws_instance" "aws" {
   }
 
   provisioner "local-exec" {
-    command = templatefile("/Users/Coding/.ssh/key", {
+    command = templatefile("/Users/Coding/Desktop/Terraform_Dev_Enviroment/ssh.tpl", {
       hostname     = self.public_ip,
       user         = "ubuntu",
       identityfile = "/Users/Coding/.ssh/key"
