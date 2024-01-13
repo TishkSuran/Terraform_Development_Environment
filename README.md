@@ -159,6 +159,7 @@ resource "aws_security_group" "main_security_group" {
 }
 ```
 In AWS, a Security Group serves as a virtual firewall for instances, controlling both inbound and outbound traffic. It is associated with instances, specifying rules to allow or deny traffic based on protocols, ports and IP addresses. Security Groups are stateful, automatically allowing response traffic, and operate on a default deny principle, requiring explicit rule definitions. They offer granular control over network access to instances and provide a crucial layer of securitiy for instances within the VPC. 
+
 <br>
 The <strong>'ingress'</strong> block defines inbound traffic rules for the AWS security group:
 <ul>
