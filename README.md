@@ -1,5 +1,6 @@
 # Terraform_Development_Environment
 
+### Terraform Providers Block
 ```hcl
 terraform {
   required_providers {
@@ -19,6 +20,7 @@ In the provided Terraform configuration, we establish the groundwork for managin
 <br>
 <br>
 
+### Local Variables Block
 ```hcl
 locals {
   cidr     = "10.123.0.0/16"
@@ -32,6 +34,7 @@ Here we define three local variables to be used later in the Terraform configura
 <br>
 <br>
 
+### Resource Block for AWS Virtual Private Cloud
 ```hcl
 resource "aws_vpc" "main_vpc" {
   cidr_block           = local.cidr
