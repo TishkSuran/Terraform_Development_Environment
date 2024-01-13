@@ -18,7 +18,6 @@ In the provided Terraform configuration, we establish the groundwork for managin
 
 <br>
 <br>
-<br>
 
 ```hcl
 locals {
@@ -30,7 +29,6 @@ locals {
 Here we define three local variables to be used later in the Terraform configuration to make it more modular, reusable and easier to maintain. These values are local to the configuration and are not exposed to the Terraform state or external systems. 
 
 
-<br>
 <br>
 <br>
 
