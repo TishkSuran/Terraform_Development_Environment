@@ -1,7 +1,7 @@
 # Terraform_Development_Environment
 
 ## Overview
-This Terraform configuration sets up a comprehensive development enviroment on AWS. It includes infrastructure components such as a Virtual Private Cloud, internet gateway, route tables, security groups, and an EC2 instance.
+This Terraform configuration sets up a comprehensive development environment on AWS. It includes infrastructure components such as a Virtual Private Cloud, internet gateway, route tables, security groups, and an EC2 instance.
 <br>
 
 
